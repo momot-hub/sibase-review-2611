@@ -37,11 +37,16 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(to bottom, rgba(5,13,28,.92), rgba(5,13,28,0));
   transition: background .3s, backdrop-filter .3s;
 }
-.site-header.scrolled {
+/* ぼかしは疑似要素に付ける（本体に付けると、スマホのメニューの位置がずれるため） */
+.site-header::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: rgba(5, 13, 28, .88);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
+  opacity: 0; transition: opacity .3s;
 }
+.site-header.scrolled { background: none; }
+.site-header.scrolled::before { opacity: 1; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand-name {
   font-family: var(--font-en); font-weight: 600; letter-spacing: .32em; font-size: 17px;
